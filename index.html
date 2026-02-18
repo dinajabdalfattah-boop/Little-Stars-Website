@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Little Stars</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins', sans-serif;
+        }
+
+        body{
+            min-height:100vh;
+            background: linear-gradient(120deg, #ffd6e8, #ffe7a1, #d4f1f4, #a0e4f7);
+            overflow-x:hidden;
+        }
+
+        /* ================= FULLSCREEN VIDEO INTRO ================= */
+        .video-intro {
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            z-index:-1; /* ضع الفيديو خلف كل العناصر */
+            overflow:hidden;
+        }
+
+        .video-intro video {
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            opacity:0.4; /* شفاف قليلاً */
+        }
+
+
+        /* ================= HEADER ================= */
+        header{
+            position:fixed;
+            top:0;
+            width:100%;
+            background:white;
+            padding:15px 80px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            box-shadow:0 2px 15px rgba(0,0,0,0.05);
+            z-index:1000;
+        }
+
+        /* LOGO */
+        .logo{
+            display:flex;
+            align-items:center;
+            gap:10px;
+        }
+
+        /* نجمتين متحركتين */
+        .star {
+            display:inline-block;
+            font-size:28px;
+            animation: floatStar 2s infinite ease-in-out alternate;
+            background: linear-gradient(45deg, #facc15, #fcd34d, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* نجمة ثانية تتحرك بتأخير */
+        .star:nth-child(2) {
+            animation-delay: 1s;
+        }
+
+        /* تحريك النجوم */
+        @keyframes floatStar {
+            0% { transform: translateY(0) rotate(0deg); opacity:1; }
+            50% { transform: translateY(-6px) rotate(20deg); opacity:0.7; }
+            100% { transform: translateY(0) rotate(0deg); opacity:1; }
+        }
+
+        .logo-text h2{
+            color:#c026d3;
+            font-weight:800;
+            font-size:26px;
+        }
+
+        .logo-text span{
+            font-size:12px;
+            color:#777;
+        }
+
+        /* NAVIGATION */
+        nav{
+            display:flex;
+            align-items:center;
+            gap:30px;
+        }
+
+        nav a{
+            text-decoration:none;
+            color:#333;
+            font-weight:600;
+            position:relative;
+            padding:5px 0;
+            transition: 0.3s;
+        }
+
+        nav a:hover{
+            color:#9333ea;
+        }
+
+        nav a::after{
+            content:"";
+            position:absolute;
+            left:0;
+            bottom:-6px;
+            width:0%;
+            height:3px;
+            background:#9333ea;
+            border-radius:5px;
+            transition: 0.3s;
+        }
+
+        nav a:hover::after{
+            width:100%;
+        }
+
+        nav a.active{
+            color:#9333ea;
+        }
+
+        nav a.active::after{
+            width:100%;
+        }
+
+        .cart{
+            font-size:20px;
+            cursor:pointer;
+        }
+
+        /* spacing after fixed header */
+        .hero{
+            margin-top:100px;
+            height:100vh;
+            display:flex;
+            align-items:center;
+            padding:0 8%;
+            position:relative;
+            z-index:600; /* فوق الفيديو */
+        }
+
+        /* ================= HERO ================= */
+        .main{
+            width:100%;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+
+        .left{ width:45%; }
+
+        .left h1{
+            font-size:60px;
+            font-weight:800;
+            line-height:1.2;
+        }
+
+        /* Gradient and floating stars */
+        .highlight{
+            background: linear-gradient(90deg, #9333ea, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .star1, .star2{
+            display:inline-block;
+            margin-left:5px;
+            font-size:50px;
+            animation: floatStar 2s infinite ease-in-out alternate;
+        }
+
+        .star2{
+            animation-delay:0.5s;
+        }
+
+        @keyframes floatStar {
+            0% { transform: translateY(0) rotate(0deg); opacity:1; }
+            50% { transform: translateY(-10px) rotate(20deg); opacity:0.7; }
+            100% { transform: translateY(0) rotate(0deg); opacity:1; }
+        }
+
+        .subtitle{
+            font-size:20px;
+            margin-top:15px;
+            color:#333;
+        }
+
+        .buttons{
+            margin-top:30px;
+            display:flex;
+            gap:20px;
+        }
+
+        .btn-primary, .btn-secondary{
+            padding:12px 30px;
+            border:none;
+            border-radius:50px;
+            cursor:pointer;
+            font-weight:600;
+            font-size:16px;
+            transition:0.3s;
+        }
+
+        .btn-primary{
+            background: linear-gradient(90deg,#8a2be2,#da70d6);
+            color:white;
+        }
+
+        .btn-primary:hover{
+            transform: scale(1.05);
+        }
+
+        .btn-secondary{
+            background:white;
+            color:#9333ea;
+            border:2px solid #9333ea;
+            position:relative;
+        }
+
+        .btn-secondary:hover{
+            transform: scale(1.05);
+        }
+
+        .btn-star{
+            display:inline-block;
+            margin-left:5px;
+            animation: floatStar 2s infinite ease-in-out alternate;
+        }
+
+        .right{
+            width:50%;
+            display:flex;
+            justify-content:center;
+        }
+
+        .right video{
+            width:100%;
+            max-width:420px;
+            border-radius:20px;
+            box-shadow:0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        /* ================= PRODUCTS ================= */
+        .products{
+            padding:100px 5%;
+            background:white;
+        }
+
+        .section-title{
+            text-align:center;
+            font-size:45px;
+            margin-bottom:60px;
+            color:#222;
+        }
+
+        .product-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+            gap:40px;
+        }
+
+        .product-card{
+            background:#f8f9ff;
+            border-radius:20px;
+            overflow:hidden;
+            position:relative;
+            transition:0.4s;
+            box-shadow:0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        .product-card:hover{
+            transform:translateY(-10px);
+        }
+
+        .product-card img{
+            width:100%;
+            height:350px;
+            object-fit:cover;
+            display:block;
+        }
+
+        /* Badge */
+        .badge{
+            position:absolute;
+            top:15px;
+            left:15px;
+            background:#ff6bd6;
+            color:white;
+            padding:5px 12px;
+            border-radius:20px;
+            font-size:12px;
+        }
+
+        /* Icons */
+        .icons{
+            position:absolute;
+            top:15px;
+            right:15px;
+            display:flex;
+            flex-direction:column;
+            gap:10px;
+        }
+
+        .icon{
+            width:40px;
+            height:40px;
+            border-radius:50%;
+            background:rgba(0,0,0,0.1);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            color:#333;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        .icon:hover{
+            background:#ff6bd6;
+            color:white;
+        }
+
+        /* Add to Cart Full Width */
+        .add-cart{
+            position:absolute;
+            bottom:0;
+            left:0;
+            width:100%;
+            padding:15px 0;
+            border:none;
+            background:linear-gradient(90deg,#2ecbff,#ff6bd6);
+            color:white;
+            font-weight:600;
+            cursor:pointer;
+            opacity:0;
+            transform:translateY(100%);
+            transition:0.4s;
+        }
+
+        .product-card:hover .add-cart{
+            opacity:1;
+            transform:translateY(0);
+        }
+
+        /* Info */
+        .info{
+            padding:20px;
+            color:#222;
+        }
+
+        .info h4{
+            margin-bottom:10px;
+        }
+
+        .info p{
+            color:#2ecbff;
+            font-weight:600;
+        }
+
+        /* ================= FEATURES ================= */
+        .features{
+            padding:80px 5%;
+            background:#f5f0fa;
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+            text-align:center;
+            gap:40px;
+        }
+
+        .feature-icon{
+            font-size:40px;
+            margin-bottom:20px;
+        }
+
+        .feature h3{
+            margin-bottom:10px;
+            color:#222;
+        }
+
+        .feature p{
+            color:#555;
+        }
+
+        /* ================= FOOTER ================= */
+        footer{
+            background:#fff;
+            padding:60px 5% 20px;
+            border-top:1px solid #ddd;
+        }
+
+        .footer-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+            gap:40px;
+            margin-bottom:40px;
+        }
+
+        .footer-title{
+            font-weight:700;
+            margin-bottom:15px;
+        }
+
+        footer ul{
+            list-style:none;
+        }
+
+        footer ul li{
+            margin-bottom:10px;
+            color:#444;
+        }
+
+        .bottom{
+            text-align:center;
+            font-size:14px;
+            color:#666;
+        }
+
+        /* Responsive */
+        @media(max-width:900px){
+            .main{
+                flex-direction:column;
+                text-align:center;
+            }
+            .left,.right{ width:100%; }
+            .right video{ margin-top:30px; }
+
+            header{
+                flex-direction:column;
+                gap:10px;
+                padding:15px 20px;
+            }
+            nav{
+                flex-wrap:wrap;
+                justify-content:center;
+                gap:15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- FULLSCREEN VIDEO INTRO -->
+
+<div class="video-intro">
+    <video autoplay loop muted playsinline>
+        <source src="4d8a9b996e62b5d42e1070ffc51d00f0.mp4" type="video/mp4">
+    </video>
+</div>
+
+
+<header>
+    <div class="logo">
+        <div class="logo-icon">
+            <span class="star">⭐</span>
+            <span class="star">✨</span>
+        </div>
+        <div class="logo-text">
+            <h2>Little Stars</h2>
+            <span>Kids Fashion 3-6 Years</span>
+        </div>
+    </div>
+
+    <nav>
+        <a href="#" class="active">Home</a>
+        <a href="#">Shop All</a>
+        <a href="#">New Arrivals</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+        <i class="fa-solid fa-cart-shopping cart"></i>
+    </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="main">
+        <div class="left">
+            <h1>
+                Dress Their <span class="highlight">Joy</span>
+                <span class="star1">✨</span>
+                <span class="star2">⭐</span>
+            </h1>
+            <div class="subtitle">Premium Comfort for Little Explorers</div>
+            <div class="buttons">
+                <button class="btn-primary">Shop Now</button>
+                <button class="btn-secondary">View Collection <span class="btn-star">✨</span></button>
+            </div>
+        </div>
+
+        <div class="right">
+            <video autoplay loop muted playsinline>
+                <source src="4d8a9b996e62b5d42e1070ffc51d00f0.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products">
+    <h2 class="section-title">Featured Collection</h2>
+    <div class="product-grid">
+
+        <div class="product-card">
+            <span class="badge">NEW</span>
+            <div class="icons">
+                <div class="icon">❤</div>
+                <div class="icon">👁</div>
+            </div>
+            <img src="Stylish kids.jpg">
+            <button class="add-cart">Add to Cart</button>
+            <div class="info">
+                <h4>Neon Dreams Hoodie</h4>
+                <p>$49</p>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <span class="badge">NEW</span>
+            <div class="icons">
+                <div class="icon">❤</div>
+                <div class="icon">👁</div>
+            </div>
+            <img src="download (3).jpg">
+            <button class="add-cart">Add to Cart</button>
+            <div class="info">
+                <h4>Future Explorer Jacket</h4>
+                <p>$79</p>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <span class="badge">NEW</span>
+            <div class="icons">
+                <div class="icon">❤</div>
+                <div class="icon">👁</div>
+            </div>
+            <img src="download (2).jpg">
+            <button class="add-cart">Add to Cart</button>
+            <div class="info">
+                <h4>Cosmic Style Set</h4>
+                <p>$65</p>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <span class="badge">SALE</span>
+            <div class="icons">
+                <div class="icon">❤</div>
+                <div class="icon">👁</div>
+            </div>
+            <img src="download (1).jpg">
+            <button class="add-cart">Add to Cart</button>
+            <div class="info">
+                <h4>Cozy Green Hoodie</h4>
+                <p>$59</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+
+    <div class="feature">
+        <div class="feature-icon">🏅</div>
+        <h3>Premium Quality</h3>
+        <p>Certified Materials</p>
+    </div>
+
+    <div class="feature">
+        <div class="feature-icon">🛡️</div>
+        <h3>Safe for Kids</h3>
+        <p>Non-Toxic Guarantee</p>
+    </div>
+
+    <div class="feature">
+        <div class="feature-icon">💜</div>
+        <h3>10K+ Happy Families</h3>
+        <p>Join Our Community</p>
+    </div>
+
+    <div class="feature">
+        <div class="feature-icon">⭐</div>
+        <h3>4.9 Rating</h3>
+        <p>Based on 2000+ Reviews</p>
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+
+    <div class="footer-grid">
+
+        <div>
+            <div class="footer-title">⭐ Little Stars</div>
+            <p>Quality, safety, and playful designs for children aged 3-6 years.</p>
+        </div>
+
+        <div>
+            <div class="footer-title">Shop</div>
+            <ul>
+                <li>👕 T-Shirts</li>
+                <li>👗 Dresses</li>
+                <li>👖 Pants & Shorts</li>
+                <li>🧥 Seasonal Outfits</li>
+                <li>👟 Accessories</li>
+            </ul>
+        </div>
+
+        <div>
+            <div class="footer-title">Our Promise</div>
+            <ul>
+                <li>✓ 100% Safe Materials</li>
+                <li>✓ Comfort Guaranteed</li>
+                <li>✓ Durable Quality</li>
+                <li>✓ Fun Designs Kids Love</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="bottom">
+        Made with 💖 for little ones <br>
+        © 2026 Little Stars. All rights reserved.
+    </div>
+
+</footer>
+
+</body>
+</html>
