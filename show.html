@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Orders Page</title>
+  <style>
+    :root{
+      --bg:#efe7df;
+      --panel:#e9dfd6;
+      --brown:#4b2f2a;
+      --brown2:#5a3a33;
+      --text:#2b2422;
+      --muted:#7a6a66;
+      --pill:#5b3c36;
+      --white:#ffffff;
+      --line: rgba(0,0,0,.08);
+      --shadow: 0 10px 30px rgba(0,0,0,.10);
+      --radius: 18px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+              radial-gradient(circle at 20% 20%, rgba(255,255,255,.55), transparent 55%),
+              radial-gradient(circle at 80% 10%, rgba(255,255,255,.35), transparent 50%),
+              linear-gradient(120deg, #f4eee7, #eadfd6);
+      min-height:100vh;
+    }
+
+    .app{
+      display:flex;
+      min-height:100vh;
+    }
+
+    /* Sidebar */
+    .sidebar{
+      width:270px;
+      background: linear-gradient(180deg, var(--brown), #3f2723);
+      color: #f6efea;
+      padding:24px 18px;
+      position:sticky;
+      top:0;
+      height:100vh;
+    }
+
+    .brand{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:10px;
+      padding:8px 0 18px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      margin-bottom:18px;
+    }
+    .brand h2{
+      margin:0;
+      font-size:20px;
+      letter-spacing:.3px;
+      font-weight:700;
+    }
+    .avatar{
+      width:86px; height:86px;
+      border-radius:50%;
+      background:
+              radial-gradient(circle at 30% 30%, #fff, #d9c8bc 60%, #c2a99a);
+      border: 3px solid rgba(255,255,255,.25);
+      box-shadow: 0 8px 18px rgba(0,0,0,.25);
+      position:relative;
+      overflow:hidden;
+    }
+    .avatar::after{
+      content:"";
+      position:absolute; inset:0;
+      background:
+              radial-gradient(circle at 60% 70%, rgba(75,47,42,.20), transparent 55%),
+              radial-gradient(circle at 35% 55%, rgba(75,47,42,.25), transparent 50%);
+      mix-blend-mode:multiply;
+      opacity:.7;
+    }
+
+    .nav{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      margin-top:10px;
+    }
+    .nav a{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      text-decoration:none;
+      color:#f6efea;
+      padding:12px 12px;
+      border-radius:14px;
+      opacity:.9;
+      transition:.2s;
+    }
+    .nav a:hover{background:rgba(255,255,255,.10); opacity:1}
+    .nav a.active{
+      background: rgba(255,255,255,.14);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.12);
+      opacity:1;
+    }
+    .icon{
+      width:18px;height:18px;display:inline-grid;place-items:center;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,.25));
+    }
+
+    .hello{
+      margin-top:18px;
+      background: rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:16px;
+      padding:14px 12px;
+      font-size:12.5px;
+      line-height:1.35;
+      color: rgba(255,255,255,.92);
+    }
+
+    .logout{
+      margin-top:14px;
+      width:100%;
+      background: rgba(255,255,255,.14);
+      color:#fff;
+      border:none;
+      padding:12px 14px;
+      border-radius:999px;
+      cursor:pointer;
+      font-weight:700;
+      letter-spacing:.3px;
+      transition:.2s;
+    }
+    .logout:hover{background: rgba(255,255,255,.20)}
+
+    /* Main */
+    .main{
+      flex:1;
+      padding:28px 28px 40px;
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:18px;
+    }
+    .topbar h1{
+      margin:0;
+      font-size:24px;
+      letter-spacing:.2px;
+      color:#3a2a27;
+    }
+
+    .controls{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    select{
+      border:1px solid var(--line);
+      background:#fff;
+      padding:10px 12px;
+      border-radius:10px;
+      outline:none;
+      min-width:140px;
+      box-shadow: 0 6px 16px rgba(0,0,0,.06);
+    }
+    .btn{
+      border:none;
+      background: var(--brown2);
+      color:#fff;
+      padding:10px 14px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:700;
+      box-shadow: 0 8px 18px rgba(0,0,0,.10);
+    }
+    .btn:hover{filter:brightness(1.05)}
+
+    .card{
+      background: rgba(255,255,255,.35);
+      border:1px solid rgba(255,255,255,.45);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      backdrop-filter: blur(6px);
+    }
+
+    .card-header{
+      text-align:center;
+      padding:18px 16px 10px;
+      font-weight:800;
+      letter-spacing:2px;
+      color:#4b2f2a;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      table-layout:fixed;
+    }
+    thead th{
+      background: rgba(75,47,42,.92);
+      color:#fff;
+      font-size:12px;
+      letter-spacing:.6px;
+      text-transform:uppercase;
+      padding:12px 12px;
+      border-bottom:1px solid rgba(255,255,255,.12);
+    }
+
+    tbody td{
+      padding:12px 12px;
+      border-bottom:1px solid var(--line);
+      background: rgba(233,223,214,.35);
+      font-size:13.5px;
+      color:#2b2422;
+      vertical-align:middle;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+    tbody tr:hover td{
+      background: rgba(233,223,214,.55);
+    }
+
+    .col-id{width:90px}
+    .col-name{width:140px}
+    .col-products{width:360px}
+    .col-status{width:140px}
+    .col-total{width:120px}
+    .col-date{width:130px}
+    .col-actions{width:120px}
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:7px 12px;
+      border-radius:999px;
+      font-weight:800;
+      font-size:12px;
+      color:#fff;
+      background: var(--pill);
+      box-shadow: 0 8px 16px rgba(0,0,0,.10);
+    }
+    .pill.pending{background:#6a5048}
+    .pill.completed{background:#4b2f2a}
+    .pill.cancelled{background:#563935}
+
+    .actions{
+      display:flex;
+      gap:8px;
+      justify-content:flex-start;
+      align-items:center;
+    }
+
+    .iconbtn{
+      width:28px;height:28px;
+      border-radius:50%;
+      border:1px solid rgba(0,0,0,.10);
+      background:#fff;
+      cursor:pointer;
+      display:grid;
+      place-items:center;
+      box-shadow: 0 8px 18px rgba(0,0,0,.08);
+      transition:.15s;
+      font-size:14px;
+    }
+    .iconbtn:hover{transform:translateY(-1px)}
+    .iconbtn:active{transform:translateY(0)}
+    .hint{color:var(--muted); font-size:12px; margin-top:10px}
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .sidebar{display:none}
+      .main{padding:18px}
+      .col-products{width:260px}
+    }
+    @media (max-width: 720px){
+      .topbar{flex-direction:column; align-items:flex-start}
+      .col-products{display:none}
+      thead th:nth-child(3), tbody td:nth-child(3){display:none}
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="avatar" aria-hidden="true"></div>
+      <h2>Nablus Soap</h2>
+    </div>
+
+    <nav class="nav">
+      <a href="#" >
+        <span class="icon">🏠</span> Home
+      </a>
+      <a href="#">
+        <span class="icon">🧼</span> Products
+      </a>
+      <a href="#">
+        <span class="icon">👥</span> Customers
+      </a>
+      <a href="#" class="active">
+        <span class="icon">🧾</span> Orders
+      </a>
+    </nav>
+
+    <div class="hello">
+      <strong>Hello Admin</strong><br/>
+      Please review the notifications and statistics below
+    </div>
+
+    <button class="logout" type="button">LOG OUT</button>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <h1>Admin Dashboard</h1>
+
+      <div class="controls">
+        <select id="statusFilter">
+          <option value="all">All</option>
+          <option value="pending">Pending</option>
+          <option value="completed">Completed</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+        <button class="btn" id="applyBtn">Apply Filter</button>
+      </div>
+    </div>
+
+    <section class="card">
+      <div class="card-header">ORDERS LIST</div>
+
+      <div style="overflow:auto;">
+        <table>
+          <thead>
+          <tr>
+            <th class="col-id">Order ID</th>
+            <th class="col-name">Customer Name</th>
+            <th class="col-products">Products</th>
+            <th class="col-status">Status</th>
+            <th class="col-total">Total Price</th>
+            <th class="col-date">Order Date</th>
+            <th class="col-actions">Actions</th>
+          </tr>
+          </thead>
+          <tbody id="ordersBody">
+          <!-- rows injected by JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="hint">Tip: Actions (✓, !, ✕) changes status to Completed / Pending / Cancelled.</div>
+  </main>
+</div>
+
+<script>
+  // Demo data (replace with API later)
+  const orders = [
+    {
+      id: 101, name: "roaa",
+      products: "Lavendar Soap (Qty: 2), Dead Sea Mud Soap (Qty: 1)",
+      status: "completed", total: 150.00, date: "2024-05-10"
+    },
+    {
+      id: 102, name: "yaman",
+      products: "Mint Soap (Qty: 5)",
+      status: "pending", total: 200.00, date: "2024-03-06"
+    },
+    {
+      id: 107, name: "yaman",
+      products: "Lavendar Soap (Qty: 30)",
+      status: "pending", total: 300.00, date: "2024-06-01"
+    },
+    {
+      id: 108, name: "yaman",
+      products: "Lemon (Qty: 5)",
+      status: "completed", total: 120.00, date: "2024-04-15"
+    },
+    {
+      id: 109, name: "roaa",
+      products: "Mint Soap (Qty: 1)",
+      status: "cancelled", total: 80.00, date: "2024-01-17"
+    },
+    {
+      id: 110, name: "roaa",
+      products: "Grapes (Qty: 1)",
+      status: "cancelled", total: 80.00, date: "2024-05-20"
+    },
+    {
+      id: 111, name: "roaa",
+      products: "Dead Sea Mud Soap (Qty: 5)",
+      status: "completed", total: 120.00, date: "2024-04-15"
+    },
+    {
+      id: 112, name: "yaman",
+      products: "Honey (Qty: 30)",
+      status: "pending", total: 300.00, date: "2024-06-01"
+    }
+  ];
+
+  const tbody = document.getElementById("ordersBody");
+  const statusFilter = document.getElementById("statusFilter");
+  const applyBtn = document.getElementById("applyBtn");
+
+  function money(n){ return "$" + n.toFixed(2); }
+  function cap(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
+
+  function pillClass(status){
+    if(status === "pending") return "pill pending";
+    if(status === "completed") return "pill completed";
+    return "pill cancelled";
+  }
+
+  function render(filterValue = "all"){
+    tbody.innerHTML = "";
+
+    const rows = orders.filter(o => filterValue === "all" ? true : o.status === filterValue);
+
+    rows.forEach(order => {
+      const tr = document.createElement("tr");
+
+      tr.innerHTML = `
+          <td class="col-id">${order.id}</td>
+          <td class="col-name">${order.name}</td>
+          <td class="col-products" title="${order.products}">${order.products}</td>
+          <td class="col-status"><span class="${pillClass(order.status)}">${cap(order.status)}</span></td>
+          <td class="col-total">${money(order.total)}</td>
+          <td class="col-date">${order.date}</td>
+          <td class="col-actions">
+            <div class="actions">
+              <button class="iconbtn" title="Mark Completed" data-id="${order.id}" data-set="completed">✓</button>
+              <button class="iconbtn" title="Mark Pending"   data-id="${order.id}" data-set="pending">!</button>
+              <button class="iconbtn" title="Mark Cancelled" data-id="${order.id}" data-set="cancelled">✕</button>
+            </div>
+          </td>
+        `;
+
+      tbody.appendChild(tr);
+    });
+  }
+
+  // Filter button
+  applyBtn.addEventListener("click", () => {
+    render(statusFilter.value);
+  });
+
+  // Actions: update status
+  tbody.addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-id]");
+    if(!btn) return;
+
+    const id = Number(btn.dataset.id);
+    const setStatus = btn.dataset.set;
+
+    const target = orders.find(o => o.id === id);
+    if(target){
+      target.status = setStatus;
+      render(statusFilter.value);
+    }
+  });
+
+  // initial render
+  render("all");
+</script>
+</body>
+</html>

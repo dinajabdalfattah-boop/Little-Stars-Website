@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stacked Fashion Animation</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        *{ box-sizing:border-box; }
+
+        /* ✅ خلفية مثل Little Stars */
+        body{
+            margin:0;
+            min-height:100vh;
+            background: linear-gradient(120deg, #fcefee, #f5e8ff, #dbeafe, #e0f7fa);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            padding:70px 20px;
+            font-family:'Poppins', sans-serif;
+        }
+
+        .panel{
+            width:1100px;
+            height:600px;
+
+            /* خيار 1: خليها غامقة زي كودك */
+            background:#0b0b0b;
+
+            /* خيار 2 (اختياري): خليها شفافة شوي عشان الخلفية تبان
+            background: rgba(10,10,10,.88);
+            backdrop-filter: blur(10px);
+            */
+
+            border-radius:12px;
+            position:relative;
+            overflow:hidden;
+            box-shadow:0 60px 120px rgba(0,0,0,.25);
+        }
+
+        .frame{
+            position:absolute;
+            inset:90px 90px 150px 90px;
+            border-radius:14px;
+            background:rgba(255,255,255,.04);
+            border:1px solid rgba(255,255,255,.08);
+            overflow:hidden;
+        }
+
+        .layers{
+            position:absolute;
+            inset:0;
+            padding:20px;
+        }
+
+        .shot{
+            position:absolute;
+            border-radius:12px;
+            overflow:hidden;
+            background:#111; /* أو #000 */
+            box-shadow:0 30px 80px rgba(0,0,0,.6);
+            transition:all 1s cubic-bezier(.2,.85,.2,1);
+            opacity:0;
+            transform:translate(80px,40px) scale(.8);
+        }
+
+        .shot img{
+            width:100%;
+            height:100%;
+            object-fit: contain;   /* بدل cover */
+            object-position: center; /* مهم */
+            filter:grayscale(100%);
+        }
+
+        .shot.in{
+            opacity:1;
+            transform:translate(0,0) scale(1);
+        }
+
+        .fade1{opacity:.45}
+        .fade2{opacity:.25}
+
+        .exit{
+            opacity:0;
+            transform:translate(-120px,60px) scale(.75);
+        }
+
+        .footer{
+            position:absolute;
+            left:90px;
+            right:90px;
+            bottom:60px;
+            display:flex;
+            justify-content:space-between;
+            color:white;
+            font-family:"Playfair Display",serif;
+        }
+
+        .percent{
+            font-size:60px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="panel">
+    <div class="frame">
+        <div class="layers" id="layers"></div>
+    </div>
+
+    <div class="footer">
+        <div class="percent" id="pct">42%</div>
+        <div>Dalmina</div>
+    </div>
+</div>
+
+<script>
+    const images = [
+        "Stylish kids.jpg",
+        "Stylish kids.jpg",
+        "Stylish kids.jpg",
+        "https://images.unsplash.com/photo-1520975682311-7e8b7b9f0e08?auto=format&fit=crop&w=1600&q=60",
+        "https://images.unsplash.com/photo-1520975741917-4b0b64e5c3d9?auto=format&fit=crop&w=1600&q=60"
+    ];
+
+    const layouts = [
+        {w:60,h:75,x:10,y:10},
+        {w:35,h:55,x:55,y:12},
+        {w:25,h:35,x:65,y:60},
+        {w:45,h:65,x:35,y:18},
+        {w:30,h:30,x:20,y:55}
+    ];
+
+    const layers=document.getElementById("layers");
+    const pct=document.getElementById("pct");
+
+    let imgI=0, layI=0;
+    const MAX=3;
+
+    function tick(){
+        const src=images[imgI%images.length];
+        const L=layouts[layI%layouts.length];
+
+        const div=document.createElement("div");
+        div.className="shot";
+        div.style.width=L.w+"%";
+        div.style.height=L.h+"%";
+        div.style.left=L.x+"%";
+        div.style.top=L.y+"%";
+
+        const img=document.createElement("img");
+        img.src=src;
+        div.appendChild(img);
+
+        layers.appendChild(div);
+
+        requestAnimationFrame(()=>div.classList.add("in"));
+
+        const all=[...layers.querySelectorAll(".shot")];
+        all.forEach(e=>e.classList.remove("fade1","fade2"));
+
+        if(all.length>1) all[all.length-2].classList.add("fade1");
+        if(all.length>2) all[all.length-3].classList.add("fade2");
+
+        if(all.length>MAX){
+            const oldest=all[0];
+            oldest.classList.add("exit");
+            setTimeout(()=>oldest.remove(),1000);
+        }
+
+        pct.innerHTML=(30+((imgI*9)%60))+"%";
+
+        imgI++;
+        layI++;
+    }
+
+    tick();
+    setTimeout(tick,400);
+    setTimeout(tick,800);
+    setInterval(tick,2800);
+</script>
+
+</body>
+</html>
