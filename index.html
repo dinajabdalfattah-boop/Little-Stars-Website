@@ -3,9 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Little Stars</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- (من كود الريفيوز) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- (من كود الاندكس) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
+        /* ====================== كود الاندكس الأصلي ====================== */
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
 
         *{
@@ -20,25 +30,6 @@
             background: linear-gradient(120deg, #ffd6e8, #ffe7a1, #d4f1f4, #a0e4f7);
             overflow-x:hidden;
         }
-
-        /* ================= FULLSCREEN VIDEO INTRO ================= */
-        .video-intro {
-            position:fixed;
-            top:0;
-            left:0;
-            width:100%;
-            height:100%;
-            z-index:-1; /* ضع الفيديو خلف كل العناصر */
-            overflow:hidden;
-        }
-
-        .video-intro video {
-            width:100%;
-            height:100%;
-            object-fit:cover;
-            opacity:0.4; /* شفاف قليلاً */
-        }
-
 
         /* ================= HEADER ================= */
         header{
@@ -146,12 +137,15 @@
         /* spacing after fixed header */
         .hero{
             margin-top:100px;
+            margin-bottom:160px;  /* كبرناها شوي */
             height:100vh;
             display:flex;
             align-items:center;
             padding:0 8%;
             position:relative;
-            z-index:600; /* فوق الفيديو */
+            z-index:600;
+
+
         }
 
         /* ================= HERO ================= */
@@ -219,6 +213,7 @@
         .btn-primary{
             background: linear-gradient(90deg,#8a2be2,#da70d6);
             color:white;
+
         }
 
         .btn-primary:hover{
@@ -250,13 +245,12 @@
 
         .right video{
             width:100%;
-            max-width:420px;
+            max-width:470px;
             border-radius:20px;
             box-shadow:0 10px 30px rgba(0,0,0,0.3);
         }
 
         /* ================= PRODUCTS ================= */
-
 
         .section-title{
             text-align:center;
@@ -372,11 +366,6 @@
         }
 
         /* Add to Cart Full Width */
-
-
-
-
-
         .add-cart{
             width:100%;
             margin-top:15px;
@@ -393,7 +382,6 @@
         .add-cart:hover{
             transform:scale(1.03);
         }
-
 
         .product-card:hover .add-cart{
             opacity:1;
@@ -493,18 +481,427 @@
                 gap:15px;
             }
         }
+
+        /* ====================== كود الريفيوز الأصلي (كما هو) ====================== */
+        :root{
+            --accent:#a855f7;      /* purple */
+            --accent2:#ec4899;     /* pink */
+            --text:#0f172a;
+            --muted:#64748b;
+            --card:#ffffff;
+            --shadow: 0 26px 70px rgba(2,6,23,.14);
+            --ring: rgba(168,85,247,.25);
+        }
+
+        *{ box-sizing:border-box; margin:0; padding:0; font-family:"Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+        a{ text-decoration:none; color:inherit; }
+        body{
+            min-height:100vh;
+            color:var(--text);
+            background:
+                    radial-gradient(1200px 380px at 50% 0%, rgba(168,85,247,.18), transparent 60%),
+                    linear-gradient(180deg, #ffffff 0%, #fbf2ff 38%, #fff9ef 100%);
+        }
+
+        /* =================== TOP NAV =================== */
+        .topbar{
+            height:84px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            padding: 0 clamp(18px, 4vw, 64px);
+            position:sticky;
+            top:0;
+            z-index:5;
+            background: rgba(255,255,255,.75);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(2,6,23,.06);
+        }
+
+        .brand{
+            display:flex;
+            align-items:center;
+            gap:12px;
+            user-select:none;
+        }
+        .brand .logo{
+            width:42px; height:42px;
+            display:grid;
+            place-items:center;
+            position:relative;
+        }
+        .brand .logo .star{
+            font-size:34px;
+            color:#fbbf24;
+            filter: drop-shadow(0 10px 18px rgba(251,191,36,.35));
+        }
+        .brand .logo .spark{
+            position:absolute;
+            left:-10px;
+            bottom:-6px;
+            width:18px; height:18px;
+            background: radial-gradient(circle at 30% 30%, #fff, #c4b5fd 60%, #a855f7);
+            border-radius:6px;
+            transform: rotate(18deg);
+            opacity:.95;
+        }
+
+        .brand .text{
+            line-height:1.05;
+        }
+        .brand .text .name{
+            font-weight:800;
+            font-size:28px;
+            letter-spacing:.2px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            -webkit-background-clip:text;
+            background-clip:text;
+            color:transparent;
+        }
+        .brand .text .sub{
+            font-size:13px;
+            color:var(--muted);
+            margin-top:4px;
+        }
+
+        .navlinks{
+            display:flex;
+            align-items:center;
+            gap:26px;
+            font-weight:600;
+            color:#0f172a;
+        }
+        .navlinks a{
+            position:relative;
+            padding: 10px 10px;
+            border-radius:999px;
+            color:#334155;
+        }
+        .navlinks a.active{
+            color: var(--accent);
+        }
+        .navlinks a.active::after{
+            content:"";
+            position:absolute;
+            left:50%;
+            transform: translateX(-50%);
+            bottom:4px;
+            width:44px;
+            height:3px;
+            border-radius:99px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            box-shadow: 0 8px 20px rgba(168,85,247,.3);
+        }
+
+        .cart{
+            width:44px; height:44px;
+            display:grid;
+            place-items:center;
+            border-radius:14px;
+            color:#334155;
+            transition:.2s ease;
+        }
+        .cart:hover{
+            background: rgba(168,85,247,.08);
+            color: var(--accent);
+        }
+
+        /* =================== SECTION =================== */
+        .wrap{
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 42px clamp(18px, 4vw, 64px) 70px;
+        }
+
+        .badge{
+            width: fit-content;
+            margin: 0 auto 18px;
+            padding: 10px 18px;
+            border-radius: 999px;
+            background: rgba(255,255,255,.7);
+            border: 1px solid rgba(2,6,23,.06);
+            box-shadow: 0 16px 40px rgba(2,6,23,.06);
+            display:flex;
+            align-items:center;
+            gap:10px;
+            color:#334155;
+            font-weight:700;
+        }
+        .badge i{
+            color:#fbbf24;
+            filter: drop-shadow(0 10px 18px rgba(251,191,36,.3));
+        }
+
+        h1{
+            text-align:center;
+            font-size: clamp(40px, 5vw, 64px);
+            font-weight:800;
+            letter-spacing:-1px;
+            margin-bottom: 10px;
+        }
+        .subhead{
+            text-align:center;
+            color:#64748b;
+            font-size: 18px;
+            margin-bottom: 36px;
+        }
+
+        /* =================== SLIDER =================== */
+        .slider-shell{
+            position:relative;
+            margin-top: 10px;
+            padding: 34px 0 0;
+        }
+
+        .card{
+            width: min(980px, 100%);
+            margin: 0 auto;
+            background: var(--card);
+            border-radius: 26px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(2,6,23,.06);
+            padding: 38px 44px;
+            position:relative;
+            overflow:hidden;
+        }
+
+        .card::before{
+            content:"";
+            position:absolute;
+            inset:-140px -220px auto auto;
+            width:340px;
+            height:340px;
+            background: radial-gradient(circle at 30% 30%, rgba(236,72,153,.22), transparent 60%),
+            radial-gradient(circle at 70% 70%, rgba(168,85,247,.18), transparent 62%);
+            border-radius: 50%;
+            filter: blur(2px);
+            pointer-events:none;
+        }
+
+        .row{
+            display:grid;
+            grid-template-columns: 190px 1fr;
+            gap: 34px;
+            align-items:center;
+        }
+
+        .avatarWrap{
+            position:relative;
+            width: 170px;
+            height: 170px;
+            margin: 0 auto;
+        }
+
+        .ring{
+            position:absolute;
+            inset:0;
+            border-radius: 50%;
+            background: conic-gradient(from 220deg, rgba(168,85,247,.25), rgba(236,72,153,.35), rgba(168,85,247,.25));
+            padding: 7px;
+            box-shadow: 0 20px 60px rgba(168,85,247,.18);
+        }
+        .avatar{
+            width:100%;
+            height:100%;
+            border-radius:50%;
+            background:#fff;
+            display:grid;
+            place-items:center;
+            overflow:hidden;
+            border: 6px solid rgba(255,255,255,.95);
+        }
+        .avatar img{
+            width:100%;
+            height:100%;
+            object-fit: cover;
+            display:block;
+            transform: scale(1.05);
+        }
+
+        .mini-badge{
+            position:absolute;
+            right: 16px;
+            bottom: 12px;
+            width: 44px;
+            height: 44px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            display:grid;
+            place-items:center;
+            border: 4px solid #fff;
+            box-shadow: 0 18px 45px rgba(236,72,153,.22);
+            color:white;
+        }
+
+        .stars{
+            display:flex;
+            align-items:center;
+            gap:6px;
+            margin-bottom: 16px;
+        }
+        .stars i{
+            color:#fbbf24;
+            filter: drop-shadow(0 10px 18px rgba(251,191,36,.25));
+        }
+
+        .quote{
+            font-size: 18px;
+            color:#334155;
+            line-height: 1.9;
+            font-style: italic;
+            max-width: 680px;
+        }
+
+        .person{
+            margin-top: 18px;
+        }
+        .person .name{
+            font-weight:800;
+            margin-bottom: 2px;
+        }
+        .person .loc{
+            color:#94a3b8;
+            font-size: 14px;
+        }
+
+        /* nav arrows */
+        .arrow{
+            position:absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 52px;
+            height: 52px;
+            border-radius: 999px;
+            background: rgba(255,255,255,.9);
+            border: 1px solid rgba(2,6,23,.08);
+            box-shadow: 0 18px 40px rgba(2,6,23,.12);
+            display:grid;
+            place-items:center;
+            cursor:pointer;
+            transition:.18s ease;
+            user-select:none;
+        }
+        .arrow:hover{ transform: translateY(-50%) scale(1.04); }
+        .arrow:active{ transform: translateY(-50%) scale(.98); }
+        .arrow i{ color: var(--accent); font-size: 18px; }
+
+        .arrow.left{ left: 22px; }
+        .arrow.right{ right: 22px; }
+
+        /* pagination dots */
+        .dots{
+            margin: 22px auto 0;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            gap:10px;
+        }
+        .dot{
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            background: rgba(100,116,139,.25);
+            cursor:pointer;
+            transition: .2s ease;
+        }
+        .dot.active{
+            width: 44px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            box-shadow: 0 14px 28px rgba(168,85,247,.2);
+        }
+
+        /* slide animation */
+        .slide{
+            opacity:0;
+            transform: translateY(8px);
+            transition: .35s ease;
+        }
+        .slide.show{
+            opacity:1;
+            transform: translateY(0);
+        }
+
+        /* responsive */
+        @media (max-width: 860px){
+            .row{ grid-template-columns: 1fr; text-align:center; }
+            .quote{ margin: 0 auto; }
+            .arrow.left{ left: 10px; }
+            .arrow.right{ right: 10px; }
+            .card{ padding: 30px 22px; }
+            .topbar{ height:auto; padding: 14px 18px; gap:14px; }
+            .navlinks{ gap:10px; }
+        }
+
+        /* =================== (تمت الإضافة) FEATURES CARDS قبل المنتجات =================== */
+        .features-section2{
+            padding:80px 5%;
+            display:grid;
+            grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+            gap:40px;
+
+            background: linear-gradient(135deg, rgba(46,203,255,0.15), rgba(255,107,214,0.15));
+            border-radius:24px;
+            margin: 40px 8%;
+            box-shadow:0 18px 45px rgba(0,0,0,0.06);
+        }
+
+
+        .feature-card2{
+            background:#fff;
+            padding:40px 25px;
+            text-align:center;
+            border-radius:28px;
+            box-shadow:0 20px 40px rgba(0,0,0,0.08);
+            transition:0.3s ease;
+        }
+
+        .feature-card2:hover{
+            transform:translateY(-8px);
+        }
+
+        .feature-card2 h3{
+            margin:20px 0 10px;
+            font-size:18px;
+            font-weight:700;
+            color:#222;
+        }
+
+        .feature-card2 p{
+            font-size:14px;
+            color:#666;
+        }
+
+        .ficon{
+            width:70px;
+            height:70px;
+            margin:0 auto;
+            border-radius:20px;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            font-size:28px;
+            color:white;
+        }
+
+        .pink2{ background:linear-gradient(135deg,#ff2d87,#ff5ca8); }
+        .green2{ background:linear-gradient(135deg,#00c853,#00e676); }
+        .blue2{ background:linear-gradient(135deg,#2196f3,#00bcd4); }
+        .purple2{ background:linear-gradient(135deg,#8e2de2,#a044ff); }
+        .orange2{ background:linear-gradient(135deg,#ff9800,#ffb300); }
+
+        @media(max-width:900px){
+            .features-section2{
+                margin: 30px 5%;
+                padding:60px 5%;
+                gap:22px;
+            }
+        }
     </style>
 </head>
 
 <body>
 
 <!-- FULLSCREEN VIDEO INTRO -->
-
-<div class="video-intro">
-    <video autoplay loop muted playsinline>
-        <source src="images/4d8a9b996e62b5d42e1070ffc51d00f0.mp4" type="video/mp4">
-    </video>
-</div>
 
 
 <header>
@@ -520,11 +917,11 @@
     </div>
 
     <nav>
-        <a href="#" class="active">Home</a>
-        <a href="#">Shop All</a>
+        <a href="index.html" class="active">Home</a>
+        <a href="">Shop All</a>
         <a href="#">New Arrivals</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
+        <a href="about.html">About</a>
+        <a href="map.html">Contact</a>
         <i class="fa-solid fa-cart-shopping cart"></i>
     </nav>
 </header>
@@ -540,7 +937,9 @@
             </h1>
             <div class="subtitle">Premium Comfort for Little Explorers</div>
             <div class="buttons">
-                <button class="btn-primary">Shop Now</button>
+                <a href="product.html">
+                    <button class="btn-primary">Shop Now</button>
+                </a>
                 <button class="btn-secondary">View Collection <span class="btn-star">✨</span></button>
             </div>
         </div>
@@ -553,7 +952,44 @@
     </div>
 </section>
 
-<!-- PRODUCTS -->
+<!-- =================== (تمت الإضافة) FEATURES CARDS قبل المنتجات مباشرة =================== -->
+<section class="features-section2">
+
+    <div class="feature-card2">
+        <div class="ficon pink2">
+            <i class="fa-regular fa-heart"></i>
+        </div>
+        <h3>100% Skin-Friendly</h3>
+        <p>Premium cotton fabrics</p>
+    </div>
+
+    <div class="feature-card2">
+        <div class="ficon green2">
+            <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <h3>Safe Materials</h3>
+        <p>Non-toxic & certified</p>
+    </div>
+
+    <div class="feature-card2">
+        <div class="ficon blue2">
+            <i class="fa-solid fa-truck"></i>
+        </div>
+        <h3>Fast Delivery</h3>
+        <p>Free shipping over $50</p>
+    </div>
+
+    <div class="feature-card2">
+        <div class="ficon purple2">
+            <i class="fa-solid fa-rotate-left"></i>
+        </div>
+        <h3>Easy Returns</h3>
+        <p>30-day return policy</p>
+    </div>
+
+</section>
+<!-- =================== نهاية الإضافة =================== -->
+
 <!-- PRODUCTS -->
 <div class="product-grid" style="background:white; padding:60px 8%; margin-top:50px; border-radius:20px; box-shadow:0 10px 25px rgba(0,0,0,0.05);">
 
@@ -614,6 +1050,64 @@
     </div>
 
 </div>
+
+<!-- =================== (تمت الإضافة) REVIEWS SECTION بعد المنتجات مباشرة =================== -->
+<main class="wrap">
+    <div class="badge">
+        <i class="fa-solid fa-star"></i>
+        <span>Customer Reviews</span>
+    </div>
+
+    <h1>Loved by Parents</h1>
+    <p class="subhead">See what our happy customers have to say</p>
+
+    <section class="slider-shell" aria-label="Customer reviews slider">
+        <button class="arrow left" id="prevBtn" aria-label="Previous review">
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+
+        <div class="card">
+            <div class="slide show" id="slide">
+                <div class="row">
+                    <div class="avatarWrap">
+                        <div class="ring">
+                            <div class="avatar">
+                                <img id="avatarImg" alt="Customer photo"
+                                     src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=500&q=60">
+                            </div>
+                        </div>
+                        <div class="mini-badge" aria-hidden="true">
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                    </div>
+
+                    <div class="content">
+                        <div class="stars" id="stars" aria-label="Rating">
+                            <!-- filled by JS -->
+                        </div>
+
+                        <p class="quote" id="quote">
+                            "The quality is outstanding! My daughter loves her new dresses. The fabric is so
+                            soft and comfortable. Highly recommend Little Stars!"
+                        </p>
+
+                        <div class="person">
+                            <div class="name" id="name">Sarah Johnson</div>
+                            <div class="loc" id="loc">New York, USA</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="arrow right" id="nextBtn" aria-label="Next review">
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
+
+        <div class="dots" id="dots" aria-label="Pagination dots"></div>
+    </section>
+</main>
+<!-- =================== نهاية الريفيوز =================== -->
 
 <!-- FEATURES -->
 <section class="features">
@@ -683,6 +1177,97 @@
     </div>
 
 </footer>
+
+<script>
+    const reviews = [
+        {
+            name: "Sarah Johnson",
+            loc: "New York, USA",
+            rating: 5,
+            quote: `"The quality is outstanding! My daughter loves her new dresses. The fabric is so
+soft and comfortable. Highly recommend Little Stars!"`,
+            img: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=500&q=60"
+        },
+        {
+            name: "Emily Carter",
+            loc: "London, UK",
+            rating: 5,
+            quote: `"Beautiful colors and perfect fit. Shipping was fast and the stitching is excellent.
+I’m definitely ordering again!"`,
+            img: "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&w=500&q=60"
+        },
+        {
+            name: "Mia Rodriguez",
+            loc: "Madrid, ES",
+            rating: 4,
+            quote: `"Super soft and adorable designs. My kiddo loves wearing them every day.
+Great value for the price!"`,
+            img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=500&q=60"
+        },
+        {
+            name: "Olivia Chen",
+            loc: "Toronto, CA",
+            rating: 5,
+            quote: `"Excellent quality and the sizes are accurate. The details are so cute.
+Customer service was very helpful!"`,
+            img: "https://images.unsplash.com/photo-1542206395-9feb3edaa68d?auto=format&fit=crop&w=500&q=60"
+        }
+    ];
+
+    let idx = 0;
+
+    const slide = document.getElementById("slide");
+    const avatarImg = document.getElementById("avatarImg");
+    const quoteEl = document.getElementById("quote");
+    const nameEl = document.getElementById("name");
+    const locEl = document.getElementById("loc");
+    const starsEl = document.getElementById("stars");
+    const dotsEl = document.getElementById("dots");
+
+    function renderStars(n){
+        starsEl.innerHTML = "";
+        for(let i=0;i<5;i++){
+            const star = document.createElement("i");
+            star.className = "fa-solid fa-star";
+            star.style.opacity = i < n ? "1" : ".28";
+            starsEl.appendChild(star);
+        }
+    }
+
+    function renderDots(){
+        dotsEl.innerHTML = "";
+        reviews.forEach((_, i) => {
+            const d = document.createElement("div");
+            d.className = "dot" + (i === idx ? " active" : "");
+            d.addEventListener("click", () => goTo(i));
+            dotsEl.appendChild(d);
+        });
+    }
+
+    function paint(){
+        const r = reviews[idx];
+        avatarImg.src = r.img;
+        quoteEl.textContent = r.quote;
+        nameEl.textContent = r.name;
+        locEl.textContent = r.loc;
+        renderStars(r.rating);
+        renderDots();
+    }
+
+    function goTo(newIdx){
+        idx = (newIdx + reviews.length) % reviews.length;
+        slide.classList.remove("show");
+        setTimeout(() => {
+            paint();
+            slide.classList.add("show");
+        }, 160);
+    }
+
+    document.getElementById("prevBtn").addEventListener("click", () => goTo(idx - 1));
+    document.getElementById("nextBtn").addEventListener("click", () => goTo(idx + 1));
+
+    paint();
+</script>
 
 </body>
 </html>
