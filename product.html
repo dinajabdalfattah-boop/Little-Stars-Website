@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Little Stars - Product</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins', sans-serif;
+        }
+
+        body{
+            background: linear-gradient(120deg, #fcefee, #f5e8ff, #dbeafe, #e0f7fa);
+        }
+
+        /* ================= HEADER ================= */
+
+        header{
+            position:fixed;
+            top:0;
+            width:100%;
+            background:white;
+            padding:15px 80px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            box-shadow:0 2px 15px rgba(0,0,0,0.05);
+            z-index:1000;
+        }
+
+        .logo{
+            display:flex;
+            align-items:center;
+            gap:10px;
+        }
+
+        .star{
+            font-size:26px;
+            display:inline-block;
+            animation: floatStar 2s infinite ease-in-out;
+            background: linear-gradient(45deg,#facc15,#fbbf24);
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+        }
+
+        .star:nth-child(2){
+            animation-delay:1s;
+        }
+
+        @keyframes floatStar{
+            0%{ transform:translateY(0) rotate(0deg);}
+            50%{ transform:translateY(-6px) rotate(15deg);}
+            100%{ transform:translateY(0) rotate(0deg);}
+        }
+
+        .logo-text h2{
+            color:#c026d3;
+            font-weight:800;
+            font-size:24px;
+        }
+
+        .logo-text span{
+            font-size:12px;
+            color:#777;
+        }
+
+        nav{
+            display:flex;
+            align-items:center;
+            gap:25px;
+        }
+
+        nav a{
+            text-decoration:none;
+            color:#333;
+            font-weight:600;
+        }
+
+        nav a:hover{
+            color:#9333ea;
+        }
+
+        /* ================= PRODUCT ================= */
+
+        .wrapper{
+            margin-top:130px;
+            display:flex;
+            justify-content:center;
+        }
+
+        .product-container {
+            display: flex;
+            gap: 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .product-image {
+            flex:1;
+            display:flex;
+            flex-direction:column;
+            gap:15px;
+        }
+
+        .product-image img {
+            width:100%;
+            border-radius:15px;
+        }
+
+        .thumbnails {
+            display:flex;
+            gap:10px;
+        }
+
+        .thumbnails img {
+            width:60px;
+            height:60px;
+            border-radius:10px;
+            cursor:pointer;
+            border:2px solid transparent;
+        }
+
+        .thumbnails img.active{
+            border-color:#9333ea;
+        }
+
+        .product-details{
+            flex:1;
+            display:flex;
+            flex-direction:column;
+        }
+
+
+        .product-details h2{
+            font-size:28px;
+            color:#333;
+        }
+
+        .price{
+            color:#9333ea;
+            font-size:22px;
+            font-weight:700;
+            margin:10px 0;
+        }
+
+        /* ===== BUTTONS ===== */
+
+        .actions{
+            margin-top:auto;   /* هذا السحر 😄 */
+            display:flex;
+            gap:15px;
+            align-items:center;
+        }
+
+
+        .btn-primary{
+            padding:14px 30px;
+            border:none;
+            border-radius:10px;
+            font-weight:600;
+            cursor:pointer;
+            background: linear-gradient(90deg,#8a2be2,#da70d6);
+            color:white;
+            transition:0.3s;
+        }
+
+        .btn-primary:hover{
+            transform: scale(1.05);
+        }
+
+        /* ===== HEART BUTTON ===== */
+
+        .favorite{
+            width:50px;
+            height:50px;
+            background:white;
+            border-radius:50%;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            cursor:pointer;
+            box-shadow:0 5px 15px rgba(0,0,0,0.15);
+            transition:0.3s;
+        }
+
+        .favorite i{
+            color:#ff4d6d;
+            font-size:18px;
+        }
+
+        .favorite:hover{
+            transform:scale(1.1);
+            background:#ffe4ec;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">
+        <div>
+            <span class="star">⭐</span>
+            <span class="star">✨</span>
+        </div>
+        <div class="logo-text">
+            <h2>Little Stars</h2>
+            <span>Kids Fashion</span>
+        </div>
+    </div>
+
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Shop</a>
+        <a href="#">New</a>
+        <a href="#">Contact</a>
+        <i class="fa-solid fa-cart-shopping"></i>
+    </nav>
+</header>
+
+<div class="wrapper">
+
+    <div class="product-container">
+
+        <div class="product-image">
+            <img id="mainImage" src="images/dress1(1).png">
+            <div class="thumbnails">
+                <img src="images/dress1(2).png" class="active" onclick="changeImage(this)">
+                <img src="images/dress1(3).png" onclick="changeImage(this)">
+                <img src="images/dress1(4).png" onclick="changeImage(this)">
+                <img src="images/dress1(5).png" onclick="changeImage(this)">
+            </div>
+        </div>
+
+        <div class="product-details">
+            <h2>Cherry Dress</h2>
+            <div class="price">$24.99</div>
+            <p>Beautiful kids dress with cute cherry pattern. Perfect for summer.</p>
+
+            <div class="actions">
+                <button class="btn-primary">Add to Cart</button>
+                <div class="favorite"><i class="fa-solid fa-heart"></i></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function changeImage(img){
+        document.getElementById("mainImage").src = img.src;
+        document.querySelectorAll(".thumbnails img").forEach(i=>i.classList.remove("active"));
+        img.classList.add("active");
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Little Stars Soap Slider</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
+
+    *{ margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+    body {
+      background: linear-gradient(120deg, #fcefee, #f5e8ff, #dbeafe, #e0f7fa);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ================= HEADER ================= */
+    header{
+      position:fixed;
+      top:0;
+      width:100%;
+      background:white;
+      padding:15px 60px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      box-shadow:0 2px 15px rgba(0,0,0,0.05);
+      z-index:1000;
+    }
+
+    .logo{
+      font-weight:800;
+      font-size:24px;
+      color:#9333ea;
+      display:flex;
+      align-items:center;
+      gap:5px;
+    }
+
+    .logo span{
+      font-size:26px;
+      animation: floatStar 2s infinite ease-in-out alternate;
+      background: linear-gradient(45deg, #facc15, #fcd34d, #fbbf24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .logo span:nth-child(2){
+      animation-delay:1s;
+    }
+
+    @keyframes floatStar{
+      0% { transform: translateY(0) rotate(0deg); opacity:1; }
+      50% { transform: translateY(-6px) rotate(20deg); opacity:0.7; }
+      100% { transform: translateY(0) rotate(0deg); opacity:1; }
+    }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap:25px;
+    }
+    nav a{
+      text-decoration:none;
+      color:#333;
+      font-weight:600;
+      position:relative;
+      padding:5px 0;
+      transition:0.3s;
+    }
+    nav a:hover{ color:#9333ea; }
+    nav a::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:-6px;
+      width:0%;
+      height:3px;
+      background:#9333ea;
+      border-radius:5px;
+      transition:0.3s;
+    }
+    nav a:hover::after{ width:100%; }
+    nav a.active{ color:#9333ea; }
+    nav a.active::after{ width:100%; }
+    .cart{ font-size:20px; cursor:pointer; }
+
+    /* ================= SLIDER ================= */
+    .slider {
+      background: rgba(255, 255, 255, 0.85);
+      max-width: 900px;
+      margin: 130px auto 50px;
+      display: flex;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      width: 100%;
+    }
+
+    .slide {
+      min-width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px;
+      position: relative;
+    }
+
+    .slide video, .slide img {
+      border-radius: 15px;
+      object-fit: cover;
+    }
+    .slide video { width: 35%; }
+    .slide img { width: 42%; }
+
+    .slide-content {
+      width: 50%;
+      color: #333;
+      position: relative;
+    }
+    .slide-content h2 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;       /* خط عريض للعنوان */
+      font-size: 26px;
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;  /* يعطي فخامة أكثر */
+    }
+
+    .slide-content p {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;       /* متوسط الوزن للفقرات */
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 18px;
+      color: #444;
+      letter-spacing: 0.3px;
+    }
+
+    .slide-content button {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;        /* يجعل النص داخل الزر واضح */
+      font-size: 15px;
+      letter-spacing: 0.5px;
+      padding: 12px 28px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: linear-gradient(90deg,#8a2be2,#da70d6);
+      color:white;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .slide-content button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(138,43,226,0.4);
+    }
+
+    /* Add stars around heading */
+    .slide-content h2::before, .slide-content h2::after{
+      content:"✨"; position:absolute; font-size:16px; color:#ffd700; animation:twinkle 2s infinite;
+    }
+    .slide-content h2::before{ left:-20px; top:0; }
+    .slide-content h2::after{ right:-20px; bottom:0; }
+
+    @keyframes twinkle{
+      0%,100%{ opacity:1; transform: scale(1); }
+      50%{ opacity:0.5; transform: scale(1.2); }
+    }
+
+    /* DOTS */
+    .dots { text-align:center; margin-top:15px; }
+    .dot {
+      display:inline-block; width:16px; height:16px; margin:0 4px;
+      background:#ccc; border-radius:50%; cursor:pointer; transition:0.3s;
+    }
+    .dot.active { background:#9333ea; }
+
+    /* ARROWS */
+    .prev, .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 36px;
+      color: #9333ea;
+      background: rgba(255,255,255,0.7);
+      border-radius: 50%;
+      padding: 8px 12px;
+      cursor: pointer;
+      user-select: none;
+      transition: 0.3s;
+      z-index: 10;
+    }
+    .prev:hover, .next:hover { background: rgba(255,255,255,0.9); }
+    .prev { left: 10px; }
+    .next { right: 10px; }
+
+    /* RESPONSIVE */
+    @media(max-width:900px){
+      .slide { flex-direction:column; text-align:center; }
+      .slide img, .slide video, .slide-content { width:100%; }
+      .slide-content { margin-top:15px; }
+      header{ flex-direction:column; gap:10px; padding:15px 20px;}
+      nav{ flex-wrap:wrap; justify-content:center; gap:15px;}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <span>⭐</span>
+    <span>✨</span>
+    Little Stars
+  </div>
+  <nav>
+    <a href="#" class="active">Home</a>
+    <a href="#">Shop</a>
+    <a href="#">New Arrivals</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+    <i class="fa-solid fa-cart-shopping cart"></i>
+  </nav>
+</header>
+
+<!-- SLIDER -->
+<div class="slider">
+  <div class="slides">
+    <!-- Slide 1: Video -->
+    <div class="slide">
+      <video autoplay muted loop>
+        <source src="images/babyvid.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+      </video>
+      <div class="slide-content">
+        <h2>Our Soaps</h2>
+        <p>Natural, gentle, and perfect for sensitive skin. Discover our full range of organic soaps for daily care.</p>
+        <button>Shop Now</button>
+      </div>
+    </div>
+
+    <!-- Slide 2: Image -->
+    <div class="slide">
+      <img src="images/Bebek kombini.jpg" alt="Product 3">
+      <div class="slide-content">
+        <h2>Eco-Friendly</h2>
+        <p>We care for the planet. Our products are sustainably made and packaged with eco-conscious materials.</p>
+        <button>Learn More</button>
+      </div>
+    </div>
+
+    <!-- Slide 3: Example Image -->
+    <div class="slide">
+      <img src="images/BABY.jpg" alt="Product 4">
+      <div class="slide-content">
+        <h2>Handmade Care</h2>
+        <p>Each soap is carefully handmade with love and natural ingredients for the best skin care.</p>
+        <button>Discover</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Arrows -->
+  <span class="prev" onclick="prevSlide()">&#10094;</span>
+  <span class="next" onclick="nextSlide()">&#10095;</span>
+</div>
+
+<div class="dots">
+  <span class="dot active" onclick="currentSlide(0)"></span>
+  <span class="dot" onclick="currentSlide(1)"></span>
+  <span class="dot" onclick="currentSlide(2)"></span>
+</div>
+
+<script>
+  let slideIndex = 0;
+  const slides = document.querySelector('.slides');
+  const dots = document.querySelectorAll('.dot');
+  const totalSlides = document.querySelectorAll('.slide').length;
+
+  function showSlide(index){
+    slides.style.transform = 'translateX(' + (-index * 100) + '%)';
+    dots.forEach(dot => dot.classList.remove('active'));
+    dots[index].classList.add('active');
+  }
+
+  function currentSlide(index){
+    slideIndex = index;
+    showSlide(slideIndex);
+  }
+
+  function prevSlide(){
+    slideIndex = (slideIndex - 1 + totalSlides) % totalSlides;
+    showSlide(slideIndex);
+  }
+
+  function nextSlide(){
+    slideIndex = (slideIndex + 1) % totalSlides;
+    showSlide(slideIndex);
+  }
+
+  // Auto Slide
+  setInterval(() => {
+    slideIndex = (slideIndex + 1) % totalSlides;
+    showSlide(slideIndex);
+  }, 5000);
+</script>
+
+</body>
+</html>

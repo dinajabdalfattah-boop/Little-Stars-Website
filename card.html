@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Little Stars - Payment</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins',sans-serif;
+    }
+
+    body{
+      height:100vh;
+      background: linear-gradient(120deg,#fcefee,#f5e8ff,#dbeafe,#e0f7fa);
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      flex-direction:column;
+    }
+
+    /* HEADER */
+
+    header{
+      position:fixed;
+      top:0;
+      width:100%;
+      background:white;
+      padding:15px 80px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      box-shadow:0 2px 15px rgba(0,0,0,0.05);
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .star{
+      font-size:26px;
+      animation: floatStar 2s infinite ease-in-out alternate;
+      background: linear-gradient(45deg,#facc15,#fcd34d,#fbbf24);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .star:nth-child(2){
+      animation-delay:1s;
+    }
+
+    @keyframes floatStar{
+      0%{transform:translateY(0)}
+      50%{transform:translateY(-6px)}
+      100%{transform:translateY(0)}
+    }
+
+    .logo-text h2{
+      color:#c026d3;
+      font-weight:800;
+    }
+
+    nav{
+      display:flex;
+      gap:25px;
+      align-items:center;
+    }
+
+    nav a{
+      text-decoration:none;
+      color:#333;
+      font-weight:600;
+    }
+
+    /* CONTAINER */
+
+    .wrapper{
+      margin-top:120px;
+    }
+
+    .container{
+      width:900px;
+      height:500px;
+      background:white;
+      border-radius:30px;
+      box-shadow:0 25px 50px rgba(0,0,0,0.15);
+      display:flex;
+      overflow:hidden;
+    }
+
+    /* LEFT CARD */
+
+    .payment-left{
+      width:50%;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background:#f8fafc;
+    }
+
+    .card-preview{
+      position:relative;
+      width:380px;
+    }
+
+    .card-img{
+      width:100%;
+      border-radius:20px;
+      box-shadow:0 15px 40px rgba(0,0,0,0.2);
+    }
+
+    /* عدل هدول حسب صورتك */
+
+    .card-number{
+      position:absolute;
+      top:58%;
+      left:55%;
+      transform:translate(-50%,-50%);
+      color:white;
+      font-size:20px;
+      letter-spacing:4px;
+      font-weight:600;
+      width:260px;
+      text-align:center;
+    }
+
+    .card-name{
+      position:absolute;
+      top:72%;
+      left:42%;
+      transform:translate(-50%,-50%);
+      color:white;
+      font-size:14px;
+      text-transform:uppercase;
+    }
+
+    .card-expiry{
+      position:absolute;
+      top:72%;
+      left:70%;
+      transform:translate(-50%,-50%);
+      color:white;
+      font-size:14px;
+    }
+
+    /* RIGHT FORM */
+
+    .payment-right{
+      width:50%;
+      background: linear-gradient(180deg,#f3e8ff,#dbeafe);
+      border-top-left-radius:200px;
+      border-bottom-left-radius:200px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+
+    .payment-form{
+      width:70%;
+    }
+
+    .input-box{
+      margin-bottom:15px;
+    }
+
+    .input-box input{
+      width:100%;
+      padding:14px;
+      border:none;
+      border-radius:15px;
+      background:#f1f3f5;
+      outline:none;
+    }
+
+    .sign-btn{
+      width:100%;
+      padding:14px;
+      border:none;
+      border-radius:15px;
+      background: linear-gradient(90deg,#c4b5fd,#93c5fd);
+      color:white;
+      font-weight:600;
+      cursor:pointer;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">
+    <div>
+      <span class="star">⭐</span>
+      <span class="star">✨</span>
+    </div>
+    <div class="logo-text">
+      <h2>Little Stars</h2>
+    </div>
+  </div>
+
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Shop</a>
+    <a href="#">Contact</a>
+    <i class="fa-solid fa-cart-shopping"></i>
+  </nav>
+</header>
+
+<div class="wrapper">
+
+  <div class="container">
+
+    <div class="payment-left">
+
+      <div class="card-preview">
+        <img src="images/images/images/card.png" class="card-img">
+
+        <div class="card-number" id="cardNumber">
+          #### #### #### ####
+        </div>
+
+        <div class="card-name" id="cardName">
+          YOUR NAME
+        </div>
+
+        <div class="card-expiry" id="cardExpiry">
+          MM/YY
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="payment-right">
+
+      <div class="payment-form">
+
+        <div class="input-box">
+          <input type="text" id="inputNumber" placeholder="Card Number" maxlength="19">
+        </div>
+
+        <div class="input-box">
+          <input type="text" id="inputName" placeholder="Card Holder Name">
+        </div>
+
+        <div class="input-box">
+          <input type="text" id="inputExpiry" placeholder="MMYY" maxlength="4">
+        </div>
+
+        <div class="input-box">
+          <input type="text" placeholder="CVV" maxlength="3">
+        </div>
+
+        <button class="sign-btn">Pay Now</button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+  let numberInput=document.getElementById("inputNumber");
+  let numberDisplay=document.getElementById("cardNumber");
+
+  numberInput.addEventListener("input",function(){
+    let value=numberInput.value.replace(/\D/g,'');
+    value=value.match(/.{1,4}/g)?.join(" ")||"";
+    numberDisplay.innerText=value||"#### #### #### ####";
+  });
+
+  let nameInput=document.getElementById("inputName");
+  let nameDisplay=document.getElementById("cardName");
+
+  nameInput.addEventListener("input",function(){
+    nameDisplay.innerText=nameInput.value||"YOUR NAME";
+  });
+
+  let expiryInput=document.getElementById("inputExpiry");
+  let expiryDisplay=document.getElementById("cardExpiry");
+
+  expiryInput.addEventListener("input",function(){
+
+    let value=expiryInput.value.replace(/\D/g,'');
+
+    if(value.length>=3){
+      value=value.substring(0,2)+"/"+value.substring(2,4);
+    }
+
+    expiryDisplay.innerText=value||"MM/YY";
+
+  });
+
+</script>
+
+</body>
+</html>
